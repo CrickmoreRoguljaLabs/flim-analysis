@@ -51,4 +51,5 @@ List of bugs + fixes that have been found when implemening this code on differen
 
 # SCT
 
-Install with `python -m pip install .` You can use the old (Marco) version with `crickflim` in the command line or the new with `sctflim`.
+Install with `python -m pip install .` You can use the old (Marco) version with `crickflim` in the command line or the new with `sctflim`. You can specify
+a file path on the command line, or by clicking

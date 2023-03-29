@@ -5,6 +5,7 @@ from datetime import datetime
 import pandas as pd
 import napari
 import numpy as np
+from magicgui.widgets import FileEdit
 
 from crickflim.sct.napari.flim_widget import FlimWidget
 from crickflim.FLIMageFileReader import FileReader
@@ -14,6 +15,19 @@ class NapariWrapper():
     def __init__(self, path : Union[str, Path] = None):
         self.viewer = napari.Viewer()
         self.reader = FileReader()
+        self.open_file_widget = FileEdit(
+            mode = 'r',
+            filter = "*.flim",
+            label = "Open .flim file",
+            layout = "vertical",
+        )
+        self.open_file_widget.changed.connect(self.open)
+        self.open_file_widget.min_height = 200
+        self.viewer.window.add_dock_widget(
+            self.open_file_widget,
+            name = 'Open .flim file',
+            area = "left",
+        )
         if path is None:
             return
         self.open(path)
@@ -25,6 +39,7 @@ class NapariWrapper():
         self.path = path
         self.reader.read_imageFile(path)
         self.lifetime_data = np.array(self.reader.image)
+        self.viewer.layers.clear()
         self.viewer.add_image(
             self.intensity,
             name=[f"Channel {i+1}" for i in range(self.lifetime_data.shape[2])],
@@ -33,14 +48,26 @@ class NapariWrapper():
             channel_axis = 2 if self.lifetime_data.ndim == 6 else None,
         )
 
-        self.viewer.add_shapes(name = 'ROIs', face_color = '#FFFFFF00')
-
+        self.viewer.add_shapes(
+            name = 'ROIs',
+            face_color = '#FFFFFF00',
+            edge_color = "#CE2556",
+        )
+        
+        if 'FLIM fit params' in self.viewer.window._dock_widgets:
+            self.viewer.window.remove_dock_widget(
+                self.viewer.window._dock_widgets['FLIM fit params']
+            )
         self.flim_widget = FlimWidget(self.reader, self.lifetime_data)
         self.viewer.window.add_dock_widget(
             self.flim_widget.params_container.container,
             name="FLIM fit params",
         )
 
+        if 'FLIM fit' in self.viewer.window._dock_widgets:
+            self.viewer.window.remove_dock_widget(
+                self.viewer.window._dock_widgets['FLIM fit']
+            )
         self.viewer.window.add_dock_widget(
             self.flim_widget.canvas,
             name="FLIM fit",

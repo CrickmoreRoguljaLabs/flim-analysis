@@ -24,6 +24,7 @@ flim_save_path = "/Users/stephen/Desktop/CrickmoreTest/flim-analysis/dummytest.c
 # ------------------------------------------------------------------------------------------------------
 
 def sct():
+    flim_data_path = sys.argv[1]
     n_w = NapariWrapper(flim_data_path)
     napari.run() 
 
