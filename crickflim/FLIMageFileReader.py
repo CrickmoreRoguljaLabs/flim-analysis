@@ -6,8 +6,15 @@ Detailed parameters are stored in FileReader.State
 @author: Ryohei Yasuda
 """
 import os
-from libtiff import TIFF
-# pip install libtiff will install this.
+try:
+    from libtiff import TIFF
+    # pip install libtiff will install this.
+except NameError:
+    raise ImportError("""
+        libtiff is not installed correctly. Please install libtiff using your specific
+        Python interpreter by using "python -m pip install libtiff" or "python3 -m pip install libtiff"
+        """)
+
 import numpy as np
 from datetime import datetime
 
@@ -428,16 +435,3 @@ class spc_spcData:
         self.TagID = 2
         self.acq_modePQ = 3
         self.lineID_PQ = 3  # M1, M2, M3, M4
-
-
-if __name__ == "__main__":
-    plotWindow = tk.Tk()
-    plotWindow.wm_title('Fluorescence lifetime')
-    plotWindow.withdraw()
-
-    file_path = filedialog.askopenfilename()
-    iminfo = FileReader()
-    iminfo.read_imageFile(file_path, True)
-    iminfo.calculatePage(0, 0, 0, [0, iminfo.n_time[0]], [0, 10], [1.6, 3], 1.5)
-
-    print('finished reading in "iminfo class"')

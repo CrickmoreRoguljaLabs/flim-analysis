@@ -92,7 +92,8 @@ class ExponentiallyModifiedGaussian:
 
         # Initialize the error function (has to be done inside this function so we have access to the
         # photon distribution)
-        optimization_func = lambda params: mse(params, y, self.expn_count, x)
+        #optimization_func = lambda params: mse(params, y, self.expn_count, x)
+        optimization_func = lambda params: chi_squared(params, y, self.expn_count, x)
 
         # Optimize over the defined error function
         optimization_results = minimize(optimization_func, self.params, method='trust-constr', bounds=self.bounds)
@@ -102,7 +103,7 @@ class ExponentiallyModifiedGaussian:
 
         # Calculate and return the various tau values
         taus = self.calculate_tau_values(y)
-        return list(taus) + [mse(self.params, y, self.expn_count, x)]  # Append the mse for error tracking
+        return list(taus) + [optimization_func(self.params)]  # Append the mse for error tracking
 
     def calculate_empirical_tau(self, y):
         """ :returns empirical tau => the mean arrival time of the photon """
@@ -119,7 +120,7 @@ class ExponentiallyModifiedGaussian:
         # Iterate through each of the time bins
         for i, photon_count in enumerate(y):
 
-            # Only if this data occurs after the irf mean do we include it
+            # # Only if this data occurs after the irf mean do we include it
             if i > irf_mean:
 
                 # Weight the number of photons by their time of arrival

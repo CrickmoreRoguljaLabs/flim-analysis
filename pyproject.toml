@@ -1,0 +1,38 @@
+[build-system]
+requires = [
+    "setuptools>=45",
+    "setuptools_scm[toml]>=6.2",
+    "wheel",
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+write_to = "crickflim/_version.py"
+
+[tool.setuptools.packages.find]
+include = ["crickflim", "crickflim.*"]
+
+[project]
+name = "crickflim"
+version = '0.0.1'
+readme = "README.md"
+description = "A package for reading and analyzing .flim data"
+license = {text="GPL-3.0-or-later"}
+authors = [
+    {name = "Stephen Thornquist", email = "thornquist@rockefeller.edu"},
+    {name = "Marco Franco", email = "idk@gmail.com"},
+]
+
+dependencies = [
+    "numpy >= 1.15",
+    "scipy",
+    "matplotlib",
+    "libtiff",
+    "napari[all]",
+    "xlsxwriter",
+    "pandas", # I prefer polars but this is the common one at the moment
+]
+
+[project.scripts]
+crickflim = "crickflim.main:main"
+sctflim = "crickflim.main:sct"

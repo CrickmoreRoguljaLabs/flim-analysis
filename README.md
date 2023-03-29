@@ -47,3 +47,8 @@ List of bugs + fixes that have been found when implemening this code on differen
 
 - ROI colors inverted/wrong => comment out line 130 in flim_files.py
 - pip install libtiff issues => Build from http://www.libtiff.org
+
+
+# SCT
+
+Install with `python -m pip install .` You can use the old (Marco) version with `crickflim` in the command line or the new with `sctflim`.

@@ -1,4 +1,4 @@
-from FLIMageFileReader import FileReader
+from crickflim.FLIMageFileReader import FileReader
 import numpy as np
 from PIL import Image as im
 from PIL import ImageDraw

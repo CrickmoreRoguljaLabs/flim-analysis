@@ -6,9 +6,9 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 from matplotlib.figure import Figure
 import numpy as np
 import csv
-from roi import ROI
-from exponentials import ExponentiallyModifiedGaussian
-from flim_files import FlimFile, StackedFlimFile
+from crickflim.roi import ROI
+from crickflim.exponentials import ExponentiallyModifiedGaussian
+from crickflim.flim_files import FlimFile, StackedFlimFile
 
 
 """-----------------------------------------------------------------------------------------------------------"""
