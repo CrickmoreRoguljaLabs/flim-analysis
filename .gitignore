@@ -1,7 +1,9 @@
 /crickflim/_version.py
 
 *.csv
-*/.xlsx
+*.xlsx
+*.npz
+*.npy
 *.flim
 *.ipynb
 *.DS_Store
