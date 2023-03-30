@@ -27,7 +27,7 @@ dependencies = [
     "numpy >= 1.15",
     "scipy",
     "matplotlib",
-    "libtiff",
+    "pylibtiff==0.5.1",
     "napari[all]",
     "xlsxwriter",
     "pandas", # I prefer polars but this is the common one at the moment

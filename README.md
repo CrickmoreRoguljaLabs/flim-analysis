@@ -1,6 +1,8 @@
 # flim-analysis
 Code for calculating fluorescent lifetimes from .flim files for the Crickmore Lab
 
+[Stephen updates](#SCT)
+
 # How to use
 
 - Navigate to "main.py"
@@ -50,6 +52,6 @@ List of bugs + fixes that have been found when implemening this code on differen
 
 
 # SCT
-
+<a name=SCT></a>
 Install with `python -m pip install .` You can use the old (Marco) version with `crickflim` in the command line or the new with `sctflim`. You can specify
 a file path on the command line, or by clicking
